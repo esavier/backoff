@@ -37,7 +37,8 @@ impl<'timer, C: Clock, R: Runnable> BackoffTimer<'timer, C, R> {
             // if policies exists we are using those instead
             match self.policies.len() {
                 0 => {
-                    self.current_loop_milis = self.counter.pow(2) * self.start;
+                    // wait for a second, then double the wait time for each loop
+                    self.current_loop_milis = self.counter.pow(2) * 1000;
                 }
                 _ => {
                     for each in self.policies.iter() {
